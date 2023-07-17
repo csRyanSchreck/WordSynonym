@@ -1,6 +1,6 @@
 # WordSimilarityGraph
 
-#Getting Started
+# Getting Started
 1. First download flask
   pip install flask
 2. If using windows open git bash. Use the following commands
