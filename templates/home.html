@@ -1,11 +1,42 @@
 {% extends "base.html"%}
 {%block title%}Home{%endblock%}
 {%block body%}
-    <div class="relative h-32 w-32">
-        <div class="absolute inset-x-0 top-0 h-16 container mx-auto py-60 border-solid border-2 border-black-500 bg-gradient-to-br">
-            <p class="text-2xl">
-                This is a tool that would find the minimum distance between two words in a graph that is connected by Synonym relationship.
-            </p>
+    
+
+
+<div class="flex items-center justify-between flex-wrap p-6">
+    <div class="bg-teal-800 rounded-2xl border border-gray-300 p-6 px-10 py-20 w-full">
+        <p class="text-black text-4xl">
+            This is a tool to find the minimum distance between two words in a directed graph. A edge is added if a word can travel to another word if the destination work is a synonym of the source node.
+            ADD MORE STUFF HERE
+        </p>
+    </div>
+</div>
+<form>
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-10xl bg-white rounded-lg shadow-md p-6">
+            <div class="grid gap-6 mb-10 md:grid-cols-2">
+                <div>
+                    <label for="word 1" class="block mb-2 text-6xl font-medium text-gray-900 dark:text-white">Word 1</label>
+                    <input type="text" id="word 1" class="p-2 w-128 bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="word 2" class="block mb-2 text-6xl font-medium text-gray-900 dark:text-white">Word 2</label>
+                    <input type="text" id="word 2" class="p-2 w-128 bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
+                </div>
+            </div>
+            <div class="p-4">
+            <label class="block mb-2 text-4xl">
+                <input type="radio" name="algorithm" value="dijkstra" class="mr-2 h-6 w-6">
+                    Dijkstra's Algorithm
+            </label>
+            <label class="block mb-2 text-4xl">
+                <input type="radio" name="algorithm" value="bfs" class="mr-2 h-6 w-6">
+                    BFS Algorithm
+            </label>
+        </div>
+            <button type="submit" class="text-white bg-gray-900 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large rounded-lg text-m w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
         </div>
     </div>
 {%endblock%}
