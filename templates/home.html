@@ -5,38 +5,52 @@
 
 
 <div class="flex items-center justify-between flex-wrap p-6">
-    <div class="bg-teal-800 rounded-2xl border border-gray-300 p-6 px-10 py-20 w-full">
+    <div class="bg-teal-800 rounded-2xl border border-black p-6 px-10 py-20 w-full">
+        <h1 class="text-white text-6xl font-bold mb-2">About This Program</h1>
         <p class="text-black text-4xl">
-            This is a tool to find the minimum distance between two words in a directed graph. A edge is added if a word can travel to another word if the destination work is a synonym of the source node.
-            ADD MORE STUFF HERE
+            This is a tool to find the minimum distance between two words in a directed graph. A vertex is adjacent to another vertex if it is a synomym of the word it is connected to. Our program determines the similarity of two words by simply finding the shortest distance between two vertices in the graph.
         </p>
+
     </div>
 </div>
-<form>
+
+<form name="form">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-10xl bg-white rounded-lg shadow-md p-6">
-            <div class="grid gap-6 mb-10 md:grid-cols-2">
+            <div class="grid gap-6 md:grid-cols-2">
                 <div>
-                    <label for="word 1" class="block mb-2 text-6xl font-medium text-gray-900 dark:text-white">Word 1</label>
-                    <input type="text" id="word 1" class="p-2 w-128 bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <label for="word 1" class="block mb-2 text-6xl font-medium">Word 1</label>
+                    <input type="text" id="word1" class="p-2 border border-gray-300 text-2xl rounded-lg w-full" required>
                 </div>
                 <div>
-                    <label for="word 2" class="block mb-2 text-6xl font-medium text-gray-900 dark:text-white">Word 2</label>
-                    <input type="text" id="word 2" class="p-2 w-128 bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
+                    <label for="word 2" class="block mb-2 text-6xl font-medium">Word 2</label>
+                    <input type="text" id="word2" class="p-2 border border-gray-300 text-2xl rounded-lg w-full"  required>
                 </div>
             </div>
             <div class="p-4">
-            <label class="block mb-2 text-4xl">
-                <input type="radio" name="algorithm" value="dijkstra" class="mr-2 h-6 w-6">
-                    Dijkstra's Algorithm
-            </label>
-            <label class="block mb-2 text-4xl">
-                <input type="radio" name="algorithm" value="bfs" class="mr-2 h-6 w-6">
-                    BFS Algorithm
-            </label>
-        </div>
-            <button type="submit" class="text-white bg-gray-900 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large rounded-lg text-m w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-        </form>
+                <label class="block mb-2 text-4xl">
+                    <input type="radio" name="algorithm" value="dijkstra" class="mr-2 h-6 w-6">
+                        Dijkstra's Algorithm
+                </label>
+                <label class="block mb-2 text-4xl">
+                    <input type="radio" name="algorithm" value="bfs" class="mr-2 h-6 w-6">
+                        BFS Algorithm
+                </label>
+            </div>
+        
+            <button id="btn" onclick="resultsUpdate(event)" type="submit" class="text-white bg-gray-900 hover:bg-gray-500 font-large rounded-lg text-m w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </div>
     </div>
+</form>
+
+<div class = "text-4xl text-center text-white">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-10xl bg-white rounded-lg shadow-md p-6">
+            <p id="distance" class="text-4xl text-center text-black">Distance: </p>  
+            <div id="mynetwork"></div>
+        </div>
+    </div>
+</div>
+
+
 {%endblock%}
