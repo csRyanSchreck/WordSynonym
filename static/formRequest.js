@@ -1,9 +1,10 @@
-
+//Function for the button onclick. This function prevents automatic reloading and will fetch the data from the api and update the DOM content
 function resultsUpdate(event){
-    event.preventDefault();
+    event.preventDefault(); //Prevent the reloading when form submitted
 
     const contentDiv = document.getElementById('distance'); 
-
+    
+    //Get the json of the data by fetching from the api 
     fetch('/results', {
         method: 'POST',
         body: new FormData(document.forms["form"]),
@@ -13,6 +14,7 @@ function resultsUpdate(event){
         contentDiv.textContent = data.message;
     })
     
+    //Call the function to create the graph visualization
     createGraph();
 }
 
