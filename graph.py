@@ -13,7 +13,7 @@ class Graph:
     
     def hasEdge(self,to,fromVertex):
         if to not in self.adj_list or fromVertex not in self.adj_list:
-            return false
+            return False
         return fromVertex in self.adj_list[to]
 
     def djikstra(self):
