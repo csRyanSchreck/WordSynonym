@@ -21,7 +21,7 @@ def get_results():
     #Use the graph object to call the correct algorithm and get the data for the shortest path, time elapsed, and the data for visualization
 
     if algorithm=="bfs":
-        shortest = graph.bfs()
+        shortest = graph.bfs(word1, word2)
     elif algorithm=="dfs":
         shortest= graph.djikstra()
     else:
