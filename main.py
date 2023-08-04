@@ -12,8 +12,6 @@ def createGraph():
         try:
             seperate = str(row["synonyms"]).split("|")
         except Exception as e:
-            print(e)
-            print(row["synonyms"])
             continue
         words=[]
         for word in seperate:

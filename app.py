@@ -19,9 +19,18 @@ def get_results():
     algorithm = request.form.get('algorithm')
     
     #Use the graph object to call the correct algorithm and get the data for the shortest path, time elapsed, and the data for visualization
+
+    if algorithm=="bfs":
+        shortest = graph.bfs()
+    elif algorithm=="dfs":
+        shortest= graph.djikstra()
+    else:
+        shortest="nothing"
     
     data = {
-        'message': algorithm,
+        'shortestpath': algorithm,
+        'nodes':["stuff","places","buy","pool","Order"],
+        'edges':{}
     }
     return jsonify(data)
 
