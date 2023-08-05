@@ -2,35 +2,32 @@
 async function resultsUpdate(event){
     event.preventDefault(); //Prevent the reloading when form submitted
 
-    const contentDiv = document.getElementById('distance'); 
-    
+    const distanceDiv = document.getElementById('distance'); 
+    const timeDiv =document.getElementById('time')
     //Get the json of the data by fetching from the api 
     const response  = await fetch('/results', {method: 'POST',body: new FormData(document.forms["form"])})
     const data = await response.json()
-    contentDiv.textContent = data.shortestpath;
-    contentDiv.time = data.time;
+    distanceDiv.textContent = data.shortestpath;
+    timeDiv.textContent = data.time;
     
     //Call the function to create the graph visualization
     createGraph(data.nodes);
 }
 
+//This function will create the graph visualization by taking in the vertcies in the shortest word path
 function createGraph(vertices){
-    
-  var nodes = new vis.DataSet([
-    { id: 1, label: vertices[0] },
-    { id: 2, label: vertices[1] },
-    { id: 9, label: vertices[2] },
-    { id: 4, label: vertices[3] },
-    { id: 5, label: vertices[4] }
-  ]);
+  
+  let dictVert = [];
+  let dictEdge=[]
+  for(let i=0;i<vertices.length;i++)
+  {
+    dictVert.push({id:i,label:vertices[i]});
+    if(i!=vertices.length-1)
+      dictEdge.push({from:i, to:i+1})
+  }
+  var nodes = new vis.DataSet(dictVert);
 
-  var edges = new vis.DataSet([
-    { from: 1, to: 9 },
-    { from: 1, to: 2 },
-    { from: 2, to: 4 },
-    { from: 2, to: 5 },
-    { from: 9, to: 9 }
-  ]);
+  var edges = new vis.DataSet( dictEdge);
 
   // create a network
   var container = document.getElementById("mynetwork");

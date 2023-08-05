@@ -14,6 +14,8 @@ def createGraph():
     for index,row in df.iterrows():
         #This is the word which we find the synonyms
         to = row["lemma"]
+        if(row["part_of_speech"]=="satellite"):
+            continue
         #Now try to seperate the synonyms words by first the | character
         try:
             seperate = str(row["synonyms"]).split("|")
@@ -27,5 +29,4 @@ def createGraph():
         #insert a directed edge where the synonym is adjacent to the word
         for word in words:
             adj_list.insertEdge(to,word)
-        
     return adj_list

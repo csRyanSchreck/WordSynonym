@@ -21,6 +21,10 @@ class Graph:
         pass
     def bfs(self, fromVertex, to):
         start_time = time.time()
+        #Check if the words exist
+        if(fromVertex not in self.adj_list or to not in self.adj_list):
+            return "Error: one of your words is not valid",time.time()-start_time,[]
+
         #init a map of vertexes and their associated indices: keys are vertexs, values are indices
         vertex_to_index = {vertex: index for index, vertex in enumerate(self.adj_list.keys())}
         #init var for both the fromVertex index and the to vertex and set them equal to their mapped values(indices)
@@ -68,7 +72,6 @@ class Graph:
 
         #init a list of the strings of vertexes in the shortest path
         shortest_path = [list(vertex_to_index.keys())[index] for index in shortest_path_indices]
-        shortest_path.append(to)
         #handle case where to vertex is unable to be reached: return -1 for minDist, 0 for execution time, and an empty list for shortest_path
         if not to_reached:
             return -1, 0, []
