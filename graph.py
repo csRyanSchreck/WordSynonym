@@ -2,6 +2,7 @@
 from collections import defaultdict
 import pandas as pd
 import time
+import heapq
 
 class Graph:
     def __init__(self):
@@ -18,7 +19,54 @@ class Graph:
         return to in self.adj_list[fromVertex]
 
     def djikstra(self):
-        pass
+        def dijkstra(wordList, fromNode, toNode):
+    start_time = time.time()
+    # Initialize dictionary to have infinity for every value
+    weights = {node: float('inf') for node in wordList}
+    weightOrder = {}
+    for node in wordList:
+       weightOrder[node] = ""
+    #set the fromNode weight to 0
+    weights[fromNode] = 0
+    
+    # Initialize list of nodes to pass through starting with the fromNode
+    notDoneNode = [(fromNode, 0)]
+    
+    while notDoneNode:
+        # returns smallest weight
+        node, weight = heapq.heappop(notDoneNode)
+        
+        # iterates through all adjacent nodes of current node
+        for adjacentNode, newWeight in wordList[node]:
+            totalWeight = weight + newWeight
+
+            if weights[adjacentNode] > totalWeight:
+                weights[adjacentNode] = totalWeight
+                weightOrder[adjacentNode]=node
+                
+                heapq.heappush(notDoneNode, (adjacentNode, totalWeight))
+
+    #returns only the path between from and to node
+    
+    orderList = []
+    tempNode = weightOrder[toNode]
+    orderList.append(tempNode)
+    while True:
+        
+        if tempNode =='':
+            break
+        tempNode = weightOrder[tempNode]
+        orderList.append(tempNode)
+    orderList.pop()
+    
+    orderList.reverse()
+    orderList.append(toNode)
+    #print(orderList)
+    
+    minWeight = weights[toNode]
+    #print(minWeight)
+    finalTime = time.time()
+    return minWeight,finalTime,orderList
     def bfs(self, fromVertex, to):
         start_time = time.time()
         #Check if the words exist
