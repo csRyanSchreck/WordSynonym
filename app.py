@@ -24,14 +24,15 @@ def get_results():
         shortest, execution_time, shortest_path = graph.bfs(word1, word2)
     elif algorithm=="dijkstra":
         shortest= "no worky"
+        execution_time=0
     else:
         shortest="nothing"
     
     #json data for the shortest path, time taken,nodes, and edges
     data = {
         'shortestpath': shortest,
-        'nodes':["stuff","places","buy","pool","Order"],
-        'edges':{}
+        'time':execution_time,
+        'nodes':shortest_path
     }
     return jsonify(data)
 

@@ -8,6 +8,7 @@ async function resultsUpdate(event){
     const response  = await fetch('/results', {method: 'POST',body: new FormData(document.forms["form"])})
     const data = await response.json()
     contentDiv.textContent = data.shortestpath;
+    contentDiv.time = data.time;
     
     //Call the function to create the graph visualization
     createGraph(data.nodes);
