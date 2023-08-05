@@ -3,7 +3,7 @@
 {%block body%}
     
 
-
+<!-- Container for the about section -->
 <div class="flex items-center justify-between flex-wrap p-6">
     <div class="bg-teal-800 rounded-2xl border border-black p-6 px-10 py-20 w-full">
         <h1 class="text-white text-6xl font-bold mb-2">About This Program</h1>
@@ -13,10 +13,11 @@
 
     </div>
 </div>
-
+<!-- Container for the input of the words and the algorithm -->
 <form name="form">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-10xl bg-white rounded-lg shadow-md p-6">
+            <!-- Two containers for the two words the user will input-->
             <div class="grid gap-6 md:grid-cols-2">
                 <div>
                     <label for="word 1" class="block mb-2 text-6xl font-medium">Word 1</label>
@@ -27,6 +28,7 @@
                     <input type="text" id="word2" class="p-2 border border-gray-300 text-2xl rounded-lg w-full"  required>
                 </div>
             </div>
+            <!--The user will input a selection of djikstra or bfs algorithm-->
             <div class="p-4">
                 <label class="block mb-2 text-4xl">
                     <input type="radio" name="algorithm" value="dijkstra" class="mr-2 h-6 w-6">
@@ -37,12 +39,13 @@
                         BFS Algorithm
                 </label>
             </div>
-        
+            <!-- On click of the button the results of the shortest path are updated on the same page -->
             <button id="btn" onclick="resultsUpdate(event)" type="submit" class="text-white bg-gray-900 hover:bg-gray-500 font-large rounded-lg text-m w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </div>
     </div>
 </form>
 
+<!-- Here is where the webpage is updated to include the results of the shortest path algorithm -->
 <div class = "text-4xl text-center text-white">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-10xl bg-white rounded-lg shadow-md p-6">

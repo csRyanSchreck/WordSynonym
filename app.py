@@ -6,6 +6,7 @@ app.config['STATIC_FOLDER'] = 'static'
 #Call the function createGraph to get the graph object
 graph = createGraph()
 
+#Main url that renders the home template for users to submit the words for the shortest path
 @app.route('/',methods=['GET'])
 def index():
     return render_template('home.html')
@@ -19,7 +20,6 @@ def get_results():
     algorithm = request.form.get('algorithm')
     
     #Use the graph object to call the correct algorithm and get the data for the shortest path, time elapsed, and the data for visualization
-
     if algorithm=="bfs":
         shortest = graph.bfs()
     elif algorithm=="dfs":
@@ -27,6 +27,7 @@ def get_results():
     else:
         shortest="nothing"
     
+    #json data for the shortest path, time taken,nodes, and edges
     data = {
         'shortestpath': algorithm,
         'nodes':["stuff","places","buy","pool","Order"],
