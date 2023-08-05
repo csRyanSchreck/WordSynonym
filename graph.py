@@ -26,6 +26,7 @@ class Graph:
         return to in self.adj_list[fromVertex]
     
     #This is the dijkstra algorithm to compute the minimum path 
+    #This function returns three different output: the minimum path or error message, the time to compute, and the nodes in the minimum path
     def dijkstra(self,fromNode,toNode):
         start_time = time.time()
 
@@ -35,20 +36,17 @@ class Graph:
                 return "Error: "+toNode+" is not valid",time.time()-start_time,[]
             else:
                 return "Error: "+fromNode+" is not valid",time.time()-start_time,[]
-        
-        #set up as dictionary mapping word to a unique index
-        wordList = {vertex: index for index, vertex in enumerate(self.adj_list.keys())}
       
         # Initialize dictionary to have infinity for every value
-        weights = {node: float('inf') for node in wordList}
+        distances = {node: float('inf') for node in self.adj_list.keys()}
 
         #Dictionary for holding previous node
-        weightOrder = {}
-        for node in wordList:
-            weightOrder[node] = ""
+        parent = {}
+        for node in self.adj_list.keys():
+            parent[node] = ""
         
-        #set the fromNode weight to 0
-        weights[fromNode] = 0
+        #set the fromNode distance to 0
+        distances[fromNode] = 0
     
         # Initialize list of nodes to pass through starting with the fromNode
         notDoneNode = [(fromNode, 0)]
@@ -56,28 +54,26 @@ class Graph:
         while notDoneNode:
             # returns smallest weight
             node, weight = heapq.heappop(notDoneNode)
-        
             # iterates through all adjacent nodes of current node
             for adjacentNode in self.adj_list[node]:
                 totalWeight = weight + 1
-
-                if weights[adjacentNode] > totalWeight:
-                    weights[adjacentNode] = totalWeight
-                    weightOrder[adjacentNode]=node
-                
+                if distances[adjacentNode] > totalWeight:
+                    distances[adjacentNode] = totalWeight
+                    parent[adjacentNode]=node
                     heapq.heappush(notDoneNode, (adjacentNode, totalWeight))
 
         #returns only the path between from and to node
         orderList = []
-        tempNode = weightOrder[toNode]
+        tempNode = parent[toNode]
         orderList.append(tempNode)
         while True:
             if tempNode =='':
                 break
-            tempNode = weightOrder[tempNode]
+            tempNode = parent[tempNode]
             orderList.append(tempNode)
         orderList.pop()
-    
+
+        #Reverse the order of the nodes and add to the end the destination node
         orderList.reverse()
         orderList.append(toNode)
     
@@ -88,6 +84,7 @@ class Graph:
         return minWeight,round(finalTime-start_time,4),orderList
     
     #BFS algorithm that gets the minimum path for the from to the to vertex
+    #This function returns three different output: the minimum distance or a error message, the time to compute, and the nodes in the minimum path
     def bfs(self, fromVertex, to):
         start_time = time.time()
         #Check if the words exist
