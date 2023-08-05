@@ -26,7 +26,7 @@ class Graph:
         return to in self.adj_list[fromVertex]
     
     #This is the dijkstra algorithm to compute the minimum path 
-    def djikstra(self,fromNode,toNode):
+    def dijkstra(self,fromNode,toNode):
         start_time = time.time()
 
         #Check if the words exist

@@ -23,7 +23,7 @@ def get_results():
     if algorithm=="bfs":
         shortest, execution_time, shortest_path = graph.bfs(word1, word2)
     elif algorithm=="dijkstra":
-        shortest, execution_time, shortest_path = graph.djikstra(word1, word2)
+        shortest, execution_time, shortest_path = graph.dijkstra(word1, word2)
     else:
         shortest="nothing"
     
