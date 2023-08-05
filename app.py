@@ -22,14 +22,14 @@ def get_results():
     #Use the graph object to call the correct algorithm and get the data for the shortest path, time elapsed, and the data for visualization
     if algorithm=="bfs":
         shortest, execution_time, shortest_path = graph.bfs(word1, word2)
-    elif algorithm=="dfs":
-        shortest= graph.djikstra()
+    elif algorithm=="dijkstra":
+        shortest= "no worky"
     else:
         shortest="nothing"
     
     #json data for the shortest path, time taken,nodes, and edges
     data = {
-        'shortestpath': algorithm,
+        'shortestpath': shortest,
         'nodes':["stuff","places","buy","pool","Order"],
         'edges':{}
     }
