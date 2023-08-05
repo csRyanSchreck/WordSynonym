@@ -25,6 +25,7 @@ def get_results():
     elif algorithm=="dijkstra":
         shortest= "no worky"
         execution_time=0
+        shortest_path=[]
     else:
         shortest="nothing"
     
