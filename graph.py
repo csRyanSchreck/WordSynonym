@@ -50,10 +50,14 @@ class Graph:
     
         # Initialize list of nodes to pass through starting with the fromNode
         notDoneNode = [(fromNode, 0)]
-    
+
         while notDoneNode:
             # returns smallest weight
             node, weight = heapq.heappop(notDoneNode)
+
+            if weight!=distances[node]:
+                continue
+                
             # iterates through all adjacent nodes of current node
             for adjacentNode in self.adj_list[node]:
                 totalWeight = weight + 1
@@ -81,7 +85,7 @@ class Graph:
         minWeight = len(orderList) - 1
         finalTime = time.time()
         
-        return minWeight,round(finalTime-start_time,4),orderList
+        return minWeight if minWeight!=0 else "No path exists",round(finalTime-start_time,4),orderList if minWeight!=0 else []
     
     #BFS algorithm that gets the minimum path for the from to the to vertex
     #This function returns three different output: the minimum distance or a error message, the time to compute, and the nodes in the minimum path
