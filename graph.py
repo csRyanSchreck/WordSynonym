@@ -63,7 +63,7 @@ class Graph:
         #append the to node to the end of the list since it wasnt included in the prev list
         shortest_path.append(toIndex)
         #handle case where to vertex is unable to be reached: return -1 for minDist, 0 for execution time, and an empty list for shortest_path
-        if len(shortest_path) == 0 or shortest_path[-1] != to:
+        if len(shortest_path) == 0 or shortest_path[-1] != toIndex:
             return -1, 0, []
         
         minPathDist = len(shortest_path)-1
