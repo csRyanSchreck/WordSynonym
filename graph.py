@@ -78,5 +78,5 @@ class Graph:
         
         minPathDist = len(shortest_path) - 1
         end_time = time.time()
-        execution_time = end_time - start_time
+        execution_time = round(end_time - start_time, 4)
         return minPathDist, execution_time, shortest_path
