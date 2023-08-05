@@ -5,64 +5,97 @@ import time
 from queue import PriorityQueue
 import sys
 import heapq
+
+#This is the class that is used to create a adjacency list and contain functions to determine the minimum path
 class Graph:
+    #constructor creates a default dictionary which contains empty list
     def __init__(self):
         self.adj_list = defaultdict(list)
     
+    #The insert edge function will append the dest vertex into the list that is associated with the fromVertex
+    #This essentialy creates a directed edges for fromVertex->to where the edge represents that to is a synonym of fromVertex
     def insertEdge(self,fromVertex,to):
         self.adj_list[fromVertex].append(to)
         if(to not in self.adj_list):
             self.adj_list[to] = []
     
+    #This function will check if to is adjacent to fromVertex or in our program's contex if to is a synonym of fromVertex
     def hasEdge(self,fromVertex,to):
         if to not in self.adj_list or fromVertex not in self.adj_list:
             return False
         return to in self.adj_list[fromVertex]
-
-    def djikstra(self,fromVertex,to):
+    
+    #This is the dijkstra algorithm to compute the minimum path 
+    def djikstra(self,fromNode,toNode):
         start_time = time.time()
-        if(fromVertex not in self.adj_list or to not in self.adj_list):
-            return "Error: one of your words is not valid",time.time()-start_time,[]
-        q = PriorityQueue()
-        q.put((0,fromVertex))
-        p={}
-        d={}
-        for key in self.adj_list:
-            if key!=fromVertex:
-                q.put((float('inf'), str(key)))
-                d[key]=float('inf')
-            else:
-                d[key]=0
-            p[key]=-1
 
-        while q.empty() is False:
-            prio,top = q.get()
-            if prio==float('inf'):
+        #Check if the words exist
+        if(fromNode not in self.adj_list or toNode not in self.adj_list):
+            if toNode not in self.adj_list:
+                return "Error: "+toNode+" is not valid",time.time()-start_time,[]
+            else:
+                return "Error: "+fromNode+" is not valid",time.time()-start_time,[]
+        
+        #set up as dictionary mapping word to a unique index
+        wordList = {vertex: index for index, vertex in enumerate(self.adj_list.keys())}
+      
+        # Initialize dictionary to have infinity for every value
+        weights = {node: float('inf') for node in wordList}
+
+        #Dictionary for holding previous node
+        weightOrder = {}
+        for node in wordList:
+            weightOrder[node] = ""
+        
+        #set the fromNode weight to 0
+        weights[fromNode] = 0
+    
+        # Initialize list of nodes to pass through starting with the fromNode
+        notDoneNode = [(fromNode, 0)]
+    
+        while notDoneNode:
+            # returns smallest weight
+            node, weight = heapq.heappop(notDoneNode)
+        
+            # iterates through all adjacent nodes of current node
+            for adjacentNode in self.adj_list[node]:
+                totalWeight = weight + 1
+
+                if weights[adjacentNode] > totalWeight:
+                    weights[adjacentNode] = totalWeight
+                    weightOrder[adjacentNode]=node
+                
+                    heapq.heappush(notDoneNode, (adjacentNode, totalWeight))
+
+        #returns only the path between from and to node
+        orderList = []
+        tempNode = weightOrder[toNode]
+        orderList.append(tempNode)
+        while True:
+            if tempNode =='':
                 break
-            for vertex in self.adj_list[top]:
-                if d[top]+1<d[vertex]:
-                    q.queue.remove((d[vertex],vertex))
-                    d[vertex]=d[top]+1
-                    q.put((d[vertex],vertex))
-                    p[vertex]=top
-        if d[to]!=float('inf'):
-            path=[]
-            vertex=to
-            while vertex!=fromVertex:
-                path.append(vertex)
-                vertex = p[vertex]
-            path.append(vertex)
-            path.reverse()
-        else:
-            path=[]
-        end_time = time.time()  
-        return "Error not connected" if d[to]==float('inf') else d[to],round(end_time-start_time),path
-           
+            tempNode = weightOrder[tempNode]
+            orderList.append(tempNode)
+        orderList.pop()
+    
+        orderList.reverse()
+        orderList.append(toNode)
+    
+        #Get the minimum weight
+        minWeight = len(orderList) - 1
+        finalTime = time.time()
+        
+        return minWeight,round(finalTime-start_time,4),orderList
+    
+    #BFS algorithm that gets the minimum path for the from to the to vertex
     def bfs(self, fromVertex, to):
         start_time = time.time()
         #Check if the words exist
         if(fromVertex not in self.adj_list or to not in self.adj_list):
-            return "Error: one of your words is not valid",time.time()-start_time,[]
+            if to not in self.adj_list:
+                return "Error: "+to+" is not valid",time.time()-start_time,[]
+            else:
+                return "Error: "+fromVertex+" is not valid",time.time()-start_time,[]
 
         #init a map of vertexes and their associated indices: keys are vertexs, values are indices
         vertex_to_index = {vertex: index for index, vertex in enumerate(self.adj_list.keys())}
