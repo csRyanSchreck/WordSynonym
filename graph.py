@@ -2,7 +2,9 @@
 from collections import defaultdict
 import pandas as pd
 import time
-
+from queue import PriorityQueue
+import sys
+import heapq
 class Graph:
     def __init__(self):
         self.adj_list = defaultdict(list)
@@ -17,8 +19,45 @@ class Graph:
             return False
         return to in self.adj_list[fromVertex]
 
-    def djikstra(self):
-        pass
+    def djikstra(self,fromVertex,to):
+        start_time = time.time()
+        if(fromVertex not in self.adj_list or to not in self.adj_list):
+            return "Error: one of your words is not valid",time.time()-start_time,[]
+        q = PriorityQueue()
+        q.put((0,fromVertex))
+        p={}
+        d={}
+        for key in self.adj_list:
+            if key!=fromVertex:
+                q.put((float('inf'), str(key)))
+                d[key]=float('inf')
+            else:
+                d[key]=0
+            p[key]=-1
+
+        while q.empty() is False:
+            prio,top = q.get()
+            if prio==float('inf'):
+                break
+            for vertex in self.adj_list[top]:
+                if d[top]+1<d[vertex]:
+                    q.queue.remove((d[vertex],vertex))
+                    d[vertex]=d[top]+1
+                    q.put((d[vertex],vertex))
+                    p[vertex]=top
+        if d[to]!=float('inf'):
+            path=[]
+            vertex=to
+            while vertex!=fromVertex:
+                path.append(vertex)
+                vertex = p[vertex]
+            path.append(vertex)
+            path.reverse()
+        else:
+            path=[]
+        end_time = time.time()  
+        return "Error not connected" if d[to]==float('inf') else d[to],round(end_time-start_time),path
+           
     def bfs(self, fromVertex, to):
         start_time = time.time()
         #Check if the words exist
@@ -74,7 +113,7 @@ class Graph:
         shortest_path = [list(vertex_to_index.keys())[index] for index in shortest_path_indices]
         #handle case where to vertex is unable to be reached: return -1 for minDist, 0 for execution time, and an empty list for shortest_path
         if not to_reached:
-            return -1, 0, []
+            return "No path exists", 0, []
         
         minPathDist = len(shortest_path) - 1
         end_time = time.time()

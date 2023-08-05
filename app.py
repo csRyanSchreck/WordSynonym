@@ -22,11 +22,8 @@ def get_results():
     #Use the graph object to call the correct algorithm and get the data for the shortest path, time elapsed, and the data for visualization
     if algorithm=="bfs":
         shortest, execution_time, shortest_path = graph.bfs(word1, word2)
-        print(execution_time)
     elif algorithm=="dijkstra":
-        shortest= "no worky"
-        execution_time=0
-        shortest_path=0
+        shortest, execution_time, shortest_path = graph.djikstra(word1, word2)
     else:
         shortest="nothing"
     

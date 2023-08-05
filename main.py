@@ -28,5 +28,7 @@ def createGraph():
 
         #insert a directed edge where the synonym is adjacent to the word
         for word in words:
-            adj_list.insertEdge(to,word)
+            #To prevent self loop since a word can not be a synonym of itself
+            if word!=to:
+                adj_list.insertEdge(to,word)
     return adj_list
