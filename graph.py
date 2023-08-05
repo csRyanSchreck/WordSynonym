@@ -58,17 +58,19 @@ class Graph:
                         to_reached = True
                         break
 
-        #
-        # Filter out non -1 values of prev to get the shortest path
-        shortest_path_indices = [node for node in prev if node != -1]
-        #append the to node to the end of the list since it wasnt included in the prev list
-        shortest_path_indices.append(toIndex)
+        #init a list of shortest_path_indices
+        shortest_path_indices = []
+        node = toIndex
+        #iterate through the prev list of parent nodes and populate into shortest path list of indices
+        while node != -1:
+            shortest_path_indices.insert(0, node)
+            node = prev[node]
 
         #init a list of the strings of vertexes in the shortest path
         shortest_path = [list(vertex_to_index.keys())[index] for index in shortest_path_indices]
         shortest_path.append(to)
         #handle case where to vertex is unable to be reached: return -1 for minDist, 0 for execution time, and an empty list for shortest_path
-        if len(shortest_path) == 0 or shortest_path_indices[-1] != toIndex:
+        if not to_reached:
             return -1, 0, []
         
         minPathDist = len(shortest_path) - 1
