@@ -61,15 +61,6 @@ class Graph:
                 if distances[adjacentNode] > totalWeight:
                     distances[adjacentNode] = totalWeight
                     parent[adjacentNode]=node
-                    remove=-1
-                    for i in range(len(notDoneNode)):
-                        if notDoneNode[i][0]==adjacentNode:
-                            remove=i
-                            break
-                    if remove!=-1:
-                        notDoneNode[remove]=notDoneNode[-1]
-                        notDoneNode.pop()
-                        heapq.heapify(notDoneNode)
                     heapq.heappush(notDoneNode, (adjacentNode, totalWeight))
 
         #returns only the path between from and to node
