@@ -61,6 +61,17 @@ class Graph:
                 if distances[adjacentNode] > totalWeight:
                     distances[adjacentNode] = totalWeight
                     parent[adjacentNode]=node
+                    remove=-1
+                    #This code is to check if the vertex already exists in the priority queue and if it does then we need to remove it
+                    for i in range(len(notDoneNode)):
+                        if notDoneNode[i][0]==adjacentNode:
+                            remove=i
+                            break
+                    if remove!=-1:
+                        notDoneNode[remove]=notDoneNode[-1]
+                        notDoneNode.pop()
+                        heapq.heapify(notDoneNode)
+                    #Once the data is no longer in the priority queue we can add it again 
                     heapq.heappush(notDoneNode, (adjacentNode, totalWeight))
 
         #returns only the path between from and to node
