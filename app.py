@@ -32,7 +32,7 @@ def get_results():
         'shortestpath': shortest,
         'time':execution_time,
         'nodes':shortest_path
-    }
+    } 
     return jsonify(data)
 
 if __name__ == '__main__':
